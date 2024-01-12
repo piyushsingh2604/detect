@@ -2,10 +2,18 @@ import 'package:flutter/material.dart';
 // import 'dart:html' as html;
 // import 'package:web_browser_detect/web_browser_detect.dart';
 // import 'package:platform_detect/platform_detect.dart';
-import 'dart:js' as js;
-import 'dart:html';
+// import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+
+import 'package:js/js.dart';
+import 'package:js/js_util.dart' as js_util;
+
+@JS()
+// This is the JavaScript function we want to call, use the same name as the JS function.
+// external dynamic timer();
+external dynamic detectBrowser();
 
 void main() {
+  // flutter build web --base-href "/detect/" --release
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: BrowserDetectionWidget(),
@@ -20,19 +28,6 @@ class BrowserDetectionWidget extends StatefulWidget {
 class _BrowserDetectionWidgetState extends State<BrowserDetectionWidget> {
   String result = '';
   String userAgent = '';
-
-  @override
-  void initState() {
-    super.initState();
-
-    //setup listener ---------------------------------
-    // window.addEventListener("callback", (event) {
-    //   // MessageEvent event2 = event;
-    //   print(event.toString());
-    //   setResult(event.toString());
-    // });
-    //------------------------------------------------
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +46,8 @@ class _BrowserDetectionWidgetState extends State<BrowserDetectionWidget> {
           Center(
             child: ElevatedButton(
               onPressed: () {
-                // checkBrowser();
-                js.context.callMethod("detectBrowser");
+                checkBrowser();
+                // js.context.callMethod("detectBrowser");
               },
               child: const Text('Check Browser'),
             ),
@@ -68,21 +63,29 @@ class _BrowserDetectionWidgetState extends State<BrowserDetectionWidget> {
   }
 
   void checkBrowser() {
-    // userAgent = html.window.navigator.userAgent;
+    // Call the JavaScript function
+    final jsPromise = detectBrowser();
 
-    // // Detect Chrome
-    // final chromeAgent = userAgent.indexOf("Chrome") > -1;
+    final data = jsPromise; 
+    print(data);
+    setResult(data);
+  }
 
-    // // Detect Safari
-    // final safariAgent = userAgent.indexOf("Safari") > -1;
+  // Async
+  void checkBrowserAsync() async {
+    // Call the JavaScript function
+    final jsPromise = detectBrowser();
 
-    // final browser = Browser();
+    // Convert JavaScript Promise to Dart Future
+    final futureData = js_util.promiseToFuture(jsPromise);
 
-    // setResult(browser.isChrome
-    //     ? 'Chrome'
-    //     : browser.isSafari
-    //         ? "Safari"
-    //         : 'Unknown');
+    try {
+      final data = await futureData;
+      print(data);
+      setResult(data);
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 
   void setResult(String message) {

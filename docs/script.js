@@ -1,4 +1,11 @@
 
+function timer() {
+    return new Promise((resolve, reject) => {
+        // setTimeout(() => {
+            resolve('Promise resolved!');
+        // }, 2000);
+    });
+}
 
 function detectBrowser() {
 
@@ -23,9 +30,14 @@ function detectBrowser() {
         browserName = "Unknown";
     }
 
-    alert("You are browsing with: " + browserName + "");
-    // window.parent.postMessage("callback", browserName);
+    // Test
+    // alert("You are browsing with: " + browserName + "");
 
-    // document.querySelector("div.form-style h3").innerText =
-    //     "You are browsing with: " + browserName + "";
+    // Async
+    // return new Promise((resolve, reject) => {
+    //     resolve(browserName);
+    // });
+
+    // Sync
+    return browserName;
 }
