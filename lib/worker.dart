@@ -6,7 +6,7 @@ import 'dart:js' as js;
 import 'package:js/js.dart' as pjs;
 import 'package:js/js_util.dart' as js_util;
 
-@pjs.JS('self')
+// @pjs.JS('self')
 external dynamic get globalScopeSelf;
 
 Stream<T> callbackToStream<J, T>(

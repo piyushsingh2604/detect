@@ -1,3 +1,4 @@
+import 'package:detect/animi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 // import 'dart:html' as html;
@@ -14,7 +15,7 @@ abstract class AppAssets {
   static const String pdfIcon = 'assets/svg/diypdf_icon.svg';
 }
 
-@JS()
+// @JS()
 // This is the JavaScript function we want to call, use the same name as the JS function.
 // external dynamic timer();
 external dynamic detectBrowser();
@@ -24,6 +25,7 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: BrowserDetectionWidget(),
+    // home: StaggeredDotsWave(size: 20, color: Colors.black45,),
   ));
 }
 
