@@ -22,6 +22,7 @@ external dynamic detectBrowser();
 
 void main() {
   // flutter build web --base-href "/detect/" --release
+  // mkdir -p release/docs && cp -a build/web/* release/docs
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: BrowserDetectionWidget(),
