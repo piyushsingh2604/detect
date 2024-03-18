@@ -1,340 +1,49 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <!-- <base href="/detect/"> -->
+    <base href="/detect/">
 
-<head>
-  <!-- <base href="/"> -->
-  <!-- BASE_HREF = (self.location.pathname.split('/').slice(0, -1).join('/') + '/').substring(1); -->
-  <base href="/detect/">
-  <meta charset="UTF-8">
-  <title>Flutter Gallery</title>
-  <meta name="description" content="A resource to help developers evaluate and use Flutter.">
-  <link rel="manifest" href="manifest.json">
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description" content="KYC DIY Project">
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
 
-  <!-- Browser meta tags & icons -->
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="gallery">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
-  <link rel="icon" type="image/png" href="favicon.png" sizes="32x32" />
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="DIY">
+    <link rel="apple-touch-icon" href="icons/appicon.png">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet" media="all">
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans:700" rel="stylesheet" media="all">
+    <title>DIY</title>
 
-  <!-- Renderer specifier -->
-  <script>
-    let searchParams = new URLSearchParams(window.location.search);
-    if (searchParams.has('renderer')) {
-      window.flutterWebRenderer = searchParams.get('renderer');
-      console.log(searchParams.get('renderer') + ' renderer requested in the URL');
-    }
-    // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = '3287026067';
-  </script>
+    <!-- Important for PWA -->
+    <link rel="manifest" href="manifest.json" />
+    <link id="favicon" rel="shortcut icon" sizes="32x32 48x48 64x64 72x72 76x76 114x114 120x120 140x140 144x144" href="icons/appicon.png" />
+    <link media="all" rel="stylesheet" href="index.css" />
 
-  <script src="flutter.js" defer></script>
+    <!-- Essencial for flutter build -->
+    <!-- The value below is injected by flutter build, do not touch. -->
+    <script> const serviceWorkerVersion = "1854423090"; </script>
+      
+    <!-- This script adds the flutter initialization JS code -->
+    <script src="flutter.js" defer></script>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5HG5ZQTYX"></script> -->
-  <!-- <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+    <!--<meta name="google-signin-client_id" content="388961764203-iookrea5s58upuoblq0vnfkdjqikiq1f.apps.googleusercontent.com">-->
+    <meta name="google-signin-client_id" content="445278447148-tho5ei72achhvmsk0571ij3nlfc3r29p.apps.googleusercontent.com">
+    
+    <!--This is script required to compress file on web-->
+    <script async src="https://cdn.jsdelivr.net/npm/pica@9.0.1/dist/pica.min.js"></script>
+  </head>
 
-    gtag('config', 'G-V5HG5ZQTYX');
-  </script> -->
-</head>
-
-<body>
-  <style>
-    body {
-      background-color: #030303;
-    }
-  </style>
-
-  <!-- Cookie notice -->
-  <div>
-    <style>
-      #cookie-notice {
-        background-color: #fff;
-        bottom: 0;
-        box-shadow: 0px 8px 24px rgba(0, 0, 0, .25);
-        -webkit-box-direction: normal;
-        -webkit-font-smoothing: antialiased;
-        display: none;
-        left: 0;
-        opacity: 0;
-        padding: 40px 0;
-        position: fixed;
-        width: 100%;
-        z-index: 11;
-      }
-
-      #cookie-notice.show {
-        animation-delay: .2s;
-        animation-duration: .5s;
-        animation-fill-mode: forwards;
-        animation-iteration-count: 1;
-        animation-name: fadein;
-        animation-timing-function: cubic-bezier(.27, .89, .39, .95);
-        display: block;
-      }
-
-      @keyframes fadein {
-        0% {
-          opacity: 0
-        }
-
-        to {
-          opacity: 1
-        }
-      }
-
-      .container {
-        align-items: center;
-        display: flex;
-        justify-content: space-between;
-        position: relative;
-        top: 1px;
-        margin: 0 auto;
-        max-width: calc(1280px - 100px);
-        width: calc(100% - 24px*2);
-      }
-
-      .container p {
-        max-width: 1200px;
-        margin: 0;
-        margin-right: 50px;
-        color: #4a4a4a;
-        font-size: 16px;
-        font-family: "Roboto", sans-serif;
-        line-height: 1.5;
-
-      }
-
-      p a {
-        color: #0468d7;
-        text-decoration: none;
-      }
-
-      button {
-        background-color: #0468d7;
-        color: #fff;
-        align-items: center;
-        justify-content: center;
-        border: 0 solid;
-        border-radius: 24px;
-        cursor: pointer;
-        display: inline-flex;
-        font-family: "Google Sans", sans-serif;
-        font-size: 14px;
-        font-weight: 700;
-        height: 40px;
-        padding: 0 32px;
-        text-align: center;
-        line-height: 1.15;
-      }
-    </style>
-    <section id="cookie-notice">
-      <div class="container">
-        <p>Google uses cookies to deliver its services, to personalize ads, and to analyze traffic. You can
-          adjust your privacy controls anytime in your
-          <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener">Google
-            settings</a>.
-          <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener">Learn more</a>.
-        </p>
-        <button id="cookie-consent">Okay</button>
-      </div>
-    </section>
-  </div>
-  <script>
-    function _setCookie(name, value) {
-      const expires = "; expires=2147483647"; // ~2038 i.e. until user clears cookies
-      document.cookie = name + "=" + (value || "") + expires + "; SameSite=Strict";
-    }
-
-    function _getCookie(name) {
-      var nameEQ = name + "=";
-      var ca = document.cookie.split(';');
-      for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-      }
-      return null;
-    }
-
-    function initCookieNotice() {
-      const notice = document.getElementById('cookie-notice');
-      const consentBtn = document.getElementById('cookie-consent');
-      const cookieKey = 'cookie-consent';
-      const cookieConsentValue = 'true'
-      const activeClass = 'show';
-      if (_getCookie(cookieKey) === cookieConsentValue) {
-        return;
-      }
-      notice.classList.add(activeClass);
-      consentBtn.classList.add(activeClass);
-      consentBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        _setCookie(cookieKey, cookieConsentValue);
-        notice.classList.remove(activeClass);
-        consentBtn.classList.add(activeClass);
-      });
-    }
-
-    initCookieNotice();
-  </script>
-
-  <!-- Loading indicator -->
-  <div id="loading">
-    <style>
-      body {
-        inset: 0;
-        overflow: hidden;
-        margin: 0;
-        padding: 0;
-        position: fixed;
-      }
-
-      #loading {
-        align-items: center;
-        display: flex;
-        height: 100%;
-        justify-content: center;
-        width: 100%;
-      }
-
-      #loading img {
-        animation: 1s ease-in-out 0s infinite alternate breathe;
-        opacity: .66;
-        transition: opacity .4s;
-      }
-
-      #loading.main_done img {
-        opacity: 1;
-      }
-
-      #loading.init_done img {
-        animation: .33s ease-in-out 0s 1 forwards zooooom;
-        opacity: .05;
-      }
-
-      @keyframes breathe {
-        from {
-          transform: scale(1)
-        }
-
-        to {
-          transform: scale(0.95)
-        }
-      }
-
-      @keyframes zooooom {
-        from {
-          transform: scale(1)
-        }
-
-        to {
-          transform: scale(10)
-        }
-      }
-    </style>
-    <img src="icons/Icon-192.png" alt="Loading indicator..." />
-  </div>
-  <script>
-    window.addEventListener('load', function () {
-      // var loading = document.querySelector('#loading');
-      _flutter.loader.loadEntrypoint({
-        entrypointUrl: "/detect/main.dart.js",
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-          serviceWorkerUrl: "/detect/flutter_service_worker.js?v=" + serviceWorkerVersion,
-        }
-      }).then(function (engineInitializer) {
-        // loading.classList.add('main_done');
-        return engineInitializer.initializeEngine();
-      }).then(function (appRunner) {
-        // loading.classList.add('init_done');
-        return appRunner.runApp();
-      }).then(function (app) {
-        // Wait a few milliseconds so users can see the "zoooom" animation
-        // before getting rid of the "loading" div.
-        window.setTimeout(function () {
-          // loading.remove();
-        }, 200);
-      });
-    });
-
-    // function launchFlutter() {
-    //     // Download main.dart.js
-    //     _flutter.loader.loadEntrypoint({
-    //       entrypointUrl: "/detect/main.dart.js",
-    //       serviceWorker: {
-    //         serviceWorkerVersion: serviceWorkerVersion,
-    //         serviceWorkerUrl: "/detect/flutter_service_worker.js?v=" + serviceWorkerVersion,
-    //       },
-    //       onEntrypointLoaded: function (engineInitializer) {
-    //         engineInitializer.initializeEngine().then(function (appRunner) {
-    //           appRunner.runApp();
-    //         });
-    //       }
-    //     });
-    //   }
-
-    //  window.addEventListener('load', function (ev) {
-    //     if ('serviceWorker' in navigator) {
-
-    //       // getting rid of undesired to fetch remote version.json file updated
-    //       var seconds = new Date().getTime();
-    //       var xmlhttp = new XMLHttpRequest();
-    //       xmlhttp.open("GET", '/version.json?v=' + seconds, true);
-    //       xmlhttp.addEventListener('load', function () {
-    //         if (xmlhttp.status == 200) {
-    //           var buildNumber = xmlhttp.responseText;
-    //           console.log('remote version is ' + buildNumber);
-    //           var currentBuildNumber = window.localStorage.getItem('buildNumber');
-
-    //           console.log('local version is ' + currentBuildNumber);
-    //           // clear worker cache if remote and local version are different
-    //           if (currentBuildNumber != buildNumber) {
-    //             console.log('App update is necessary. Clearing service workers cache');
-    //             caches.delete('flutter-app-manifest');
-    //             caches.delete('flutter-temp-cache');
-    //             caches.delete('flutter-app-cache');
-
-    //             // store new version number
-    //             window.localStorage.setItem('buildNumber', buildNumber);
-    //             window.location.reload();
-    //           } else {
-    //             console.log('App is up to date');
-    //             launchFlutter();
-    //           }
-    //         }
-    //       });
-
-    //       xmlhttp.addEventListener('error', function () {
-    //         launchFlutter();
-    //       });
-
-    //       xmlhttp.addEventListener('abort', function () {
-    //         launchFlutter();
-    //       });
-
-    //       xmlhttp.addEventListener('timeout', function () {
-    //         launchFlutter();
-    //       });
-
-    //       xmlhttp.send();
-    //     } else {
-    //       console.log('Service worker not found. Continue app loading.');
-    //       launchFlutter();
-    //     }
-    //   });
-  </script>
-
-  <!-- App -->
-</body>
+  <body>
+    <!-- Show loading during flutter build -->
+    <div id="loading">
+      <div id="loader"></div>
+    </div>
+  
+    <script src="loading.js"></script>
+      <!-- End Show loading during flutter build -->
+  </body>
 
 </html>
