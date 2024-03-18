@@ -2,10 +2,10 @@
 window.addEventListener('load', function () {
     // var loading = document.querySelector('#loading');
     _flutter.loader.loadEntrypoint({
-        entrypointUrl: "/detect/main.dart.js",
+        // entrypointUrl: "/detect/main.dart.js",
         serviceWorker: {
             serviceWorkerVersion: serviceWorkerVersion,
-            serviceWorkerUrl: "/detect/flutter_service_worker.js?v=" + serviceWorkerVersion,
+            // serviceWorkerUrl: "/detect/flutter_service_worker.js?v=" + serviceWorkerVersion,
         }
     }).then(function (engineInitializer) {
         return engineInitializer.initializeEngine({useColorEmoji: true})
