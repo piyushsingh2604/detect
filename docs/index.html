@@ -244,94 +244,94 @@
     <img src="icons/Icon-192.png" alt="Loading indicator..." />
   </div>
   <script>
-    // window.addEventListener('load', function () {
-    //   var loading = document.querySelector('#loading');
-    //   _flutter.loader.loadEntrypoint({
-    //     entrypointUrl: "/detect/main.dart.js",
-    //     serviceWorker: {
-    //       serviceWorkerVersion: serviceWorkerVersion,
-    //       serviceWorkerUrl: "/detect/flutter_service_worker.js?v=" + serviceWorkerVersion,
-    //     }
-    //   }).then(function (engineInitializer) {
-    //     loading.classList.add('main_done');
-    //     return engineInitializer.initializeEngine();
-    //   }).then(function (appRunner) {
-    //     loading.classList.add('init_done');
-    //     return appRunner.runApp();
-    //   }).then(function (app) {
-    //     // Wait a few milliseconds so users can see the "zoooom" animation
-    //     // before getting rid of the "loading" div.
-    //     window.setTimeout(function () {
-    //       loading.remove();
-    //     }, 200);
-    //   });
-    // });
-
-    function launchFlutter() {
-        // Download main.dart.js
-        _flutter.loader.loadEntrypoint({
-          entrypointUrl: "/detect/main.dart.js",
-          serviceWorker: {
-            serviceWorkerVersion: serviceWorkerVersion,
-            serviceWorkerUrl: "/detect/flutter_service_worker.js?v=" + serviceWorkerVersion,
-          },
-          onEntrypointLoaded: function (engineInitializer) {
-            engineInitializer.initializeEngine().then(function (appRunner) {
-              appRunner.runApp();
-            });
-          }
-        });
-      }
-
-     window.addEventListener('load', function (ev) {
-        if ('serviceWorker' in navigator) {
-
-          // getting rid of undesired to fetch remote version.json file updated
-          var seconds = new Date().getTime();
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.open("GET", '/version.json?v=' + seconds, true);
-          xmlhttp.addEventListener('load', function () {
-            if (xmlhttp.status == 200) {
-              var buildNumber = xmlhttp.responseText;
-              console.log('remote version is ' + buildNumber);
-              var currentBuildNumber = window.localStorage.getItem('buildNumber');
-
-              console.log('local version is ' + currentBuildNumber);
-              // clear worker cache if remote and local version are different
-              if (currentBuildNumber != buildNumber) {
-                console.log('App update is necessary. Clearing service workers cache');
-                caches.delete('flutter-app-manifest');
-                caches.delete('flutter-temp-cache');
-                caches.delete('flutter-app-cache');
-
-                // store new version number
-                window.localStorage.setItem('buildNumber', buildNumber);
-                window.location.reload();
-              } else {
-                console.log('App is up to date');
-                launchFlutter();
-              }
-            }
-          });
-
-          xmlhttp.addEventListener('error', function () {
-            launchFlutter();
-          });
-
-          xmlhttp.addEventListener('abort', function () {
-            launchFlutter();
-          });
-
-          xmlhttp.addEventListener('timeout', function () {
-            launchFlutter();
-          });
-
-          xmlhttp.send();
-        } else {
-          console.log('Service worker not found. Continue app loading.');
-          launchFlutter();
+    window.addEventListener('load', function () {
+      // var loading = document.querySelector('#loading');
+      _flutter.loader.loadEntrypoint({
+        entrypointUrl: "/detect/main.dart.js",
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+          serviceWorkerUrl: "/detect/flutter_service_worker.js?v=" + serviceWorkerVersion,
         }
+      }).then(function (engineInitializer) {
+        // loading.classList.add('main_done');
+        return engineInitializer.initializeEngine();
+      }).then(function (appRunner) {
+        // loading.classList.add('init_done');
+        return appRunner.runApp();
+      }).then(function (app) {
+        // Wait a few milliseconds so users can see the "zoooom" animation
+        // before getting rid of the "loading" div.
+        window.setTimeout(function () {
+          // loading.remove();
+        }, 200);
       });
+    });
+
+    // function launchFlutter() {
+    //     // Download main.dart.js
+    //     _flutter.loader.loadEntrypoint({
+    //       entrypointUrl: "/detect/main.dart.js",
+    //       serviceWorker: {
+    //         serviceWorkerVersion: serviceWorkerVersion,
+    //         serviceWorkerUrl: "/detect/flutter_service_worker.js?v=" + serviceWorkerVersion,
+    //       },
+    //       onEntrypointLoaded: function (engineInitializer) {
+    //         engineInitializer.initializeEngine().then(function (appRunner) {
+    //           appRunner.runApp();
+    //         });
+    //       }
+    //     });
+    //   }
+
+    //  window.addEventListener('load', function (ev) {
+    //     if ('serviceWorker' in navigator) {
+
+    //       // getting rid of undesired to fetch remote version.json file updated
+    //       var seconds = new Date().getTime();
+    //       var xmlhttp = new XMLHttpRequest();
+    //       xmlhttp.open("GET", '/version.json?v=' + seconds, true);
+    //       xmlhttp.addEventListener('load', function () {
+    //         if (xmlhttp.status == 200) {
+    //           var buildNumber = xmlhttp.responseText;
+    //           console.log('remote version is ' + buildNumber);
+    //           var currentBuildNumber = window.localStorage.getItem('buildNumber');
+
+    //           console.log('local version is ' + currentBuildNumber);
+    //           // clear worker cache if remote and local version are different
+    //           if (currentBuildNumber != buildNumber) {
+    //             console.log('App update is necessary. Clearing service workers cache');
+    //             caches.delete('flutter-app-manifest');
+    //             caches.delete('flutter-temp-cache');
+    //             caches.delete('flutter-app-cache');
+
+    //             // store new version number
+    //             window.localStorage.setItem('buildNumber', buildNumber);
+    //             window.location.reload();
+    //           } else {
+    //             console.log('App is up to date');
+    //             launchFlutter();
+    //           }
+    //         }
+    //       });
+
+    //       xmlhttp.addEventListener('error', function () {
+    //         launchFlutter();
+    //       });
+
+    //       xmlhttp.addEventListener('abort', function () {
+    //         launchFlutter();
+    //       });
+
+    //       xmlhttp.addEventListener('timeout', function () {
+    //         launchFlutter();
+    //       });
+
+    //       xmlhttp.send();
+    //     } else {
+    //       console.log('Service worker not found. Continue app loading.');
+    //       launchFlutter();
+    //     }
+    //   });
   </script>
 
   <!-- App -->
