@@ -285,6 +285,7 @@
 
      window.addEventListener('load', function (ev) {
         if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register("/detect/flutter_service_worker.js", { scope: '/detect/' });
 
           // getting rid of undesired to fetch remote version.json file updated
           var seconds = new Date().getTime();
