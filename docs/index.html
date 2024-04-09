@@ -273,7 +273,7 @@
           entrypointUrl: "/detect/main.dart.js",
           serviceWorker: {
             serviceWorkerVersion: serviceWorkerVersion,
-            serviceWorkerUrl: "/detect/flutter_service_worker.js?v=" + serviceWorkerVersion,
+            // serviceWorkerUrl: "/detect/flutter_service_worker.js?v=" + serviceWorkerVersion,
           },
           onEntrypointLoaded: function (engineInitializer) {
             engineInitializer.initializeEngine().then(function (appRunner) {
@@ -285,7 +285,7 @@
 
      window.addEventListener('load', function (ev) {
         if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register("/detect/flutter_service_worker.js", { scope: '/detect/' });
+          navigator.serviceWorker.register("/detect/flutter_service_worker.js", { scope: '/detect' });
 
           // getting rid of undesired to fetch remote version.json file updated
           var seconds = new Date().getTime();
