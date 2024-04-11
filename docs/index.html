@@ -270,7 +270,7 @@
     function launchFlutter() {
         // Download main.dart.js
         _flutter.loader.loadEntrypoint({
-          entrypointUrl: "/detect/main.dart.js",
+          // entrypointUrl: "/detect/main.dart.js",
           serviceWorker: {
             serviceWorkerVersion: serviceWorkerVersion,
             // serviceWorkerUrl: "/detect/flutter_service_worker.js?v=" + serviceWorkerVersion,
@@ -285,7 +285,8 @@
 
      window.addEventListener('load', function (ev) {
         if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register("/detect/flutter_service_worker.js?v=" + serviceWorkerVersion, { scope: '/detect/' });
+          // console.log('serviceWorker version is ' + serviceWorkerVersion);
+          // navigator.serviceWorker.register("/detect/flutter_service_worker.js?v=" + serviceWorkerVersion, { scope: '/detect/' });
 
           // getting rid of undesired to fetch remote version.json file updated
           var seconds = new Date().getTime();

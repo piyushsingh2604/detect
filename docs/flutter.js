@@ -127,6 +127,7 @@ _flutter.loader = null;
         serviceWorkerUrl = `${baseUri}flutter_service_worker.js?v=${serviceWorkerVersion}`,
         timeoutMillis = 4000,
       } = settings;
+      console.log('serviceWorkerUrl is ' + serviceWorkerUrl);
 
       // Apply the TrustedTypes policy, if present.
       let url = serviceWorkerUrl;
