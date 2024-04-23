@@ -21,7 +21,7 @@ _flutter.loader = null;
     if (uri == "") {
       return uri;
     }
-    return uri.endsWith("/") ? uri : `${uri}/detect/`;
+    return uri.endsWith("/") ? uri : `${uri}/`;
   }
 
   /**
@@ -124,7 +124,7 @@ _flutter.loader = null;
       }
       const {
         serviceWorkerVersion,
-        serviceWorkerUrl = `${baseUri}/detect/flutter_service_worker.js?v=${serviceWorkerVersion}`,
+        serviceWorkerUrl = `${baseUri}./flutter_service_worker.js?v=${serviceWorkerVersion}`,
         timeoutMillis = 4000,
       } = settings;
       console.log('serviceWorkerUrl is ' + serviceWorkerUrl);
@@ -243,7 +243,7 @@ _flutter.loader = null;
      * Returns undefined when an `onEntrypointLoaded` callback is supplied in `options`.
      */
     async loadEntrypoint(options) {
-      const { entrypointUrl = `${baseUri}/detect/main.dart.js`, onEntrypointLoaded } =
+      const { entrypointUrl = `${baseUri}./main.dart.js`, onEntrypointLoaded } =
         options || {};
 
       return this._loadEntrypoint(entrypointUrl, onEntrypointLoaded);
