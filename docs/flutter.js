@@ -21,7 +21,7 @@ _flutter.loader = null;
     if (uri == "") {
       return uri;
     }
-    return uri.endsWith("/") ? uri : `${uri}/`;
+    return uri.endsWith("/") ? uri : `${uri}/detect/`;
   }
 
   /**
